@@ -19,18 +19,16 @@ export const Model = ({
   texture: Texture | null;
   path: string;
 }) => {
-  const { scene } = useGLTF(path); // Load the model
-  const logoRef = useRef<Group>(null); // Reference to the model
+  const { scene } = useGLTF(path);
+  const logoRef = useRef<Group>(null);
 
-  // Handle model switch and centering
   useEffect(() => {
     if (scene && logoRef.current) {
-      logoRef.current.clear(); // Clear previous model's children if switching
+      logoRef.current.clear();
 
-      // Add new model's scene to the logoRef
+      // @ts-ignore
       logoRef.current.add(scene);
 
-      // Traverse and apply color/texture to the new model
       scene.traverse((mesh) => {
         if ((mesh as unknown as Mesh).isMesh) {
           if (texture) {
@@ -47,7 +45,6 @@ export const Model = ({
     }
   }, [color, texture, path, scene]);
 
-  // Rotate the model slowly on each frame
   useFrame(() => {
     if (logoRef.current) {
       logoRef.current.rotation.y += 0.001;
