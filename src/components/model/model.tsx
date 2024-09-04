@@ -25,8 +25,6 @@ export const Model = ({
   useEffect(() => {
     if (scene && logoRef.current) {
       logoRef.current.clear();
-
-      // @ts-ignore
       logoRef.current.add(scene);
 
       scene.traverse((mesh) => {
@@ -42,6 +40,11 @@ export const Model = ({
           }
         }
       });
+
+      const box = new Box3().setFromObject(scene);
+      const center = new Vector3();
+      box.getCenter(center);
+      scene.position.sub(center);
     }
   }, [color, texture, path, scene]);
 
