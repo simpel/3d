@@ -30,10 +30,10 @@ export const Content = ({
       <Plane
         receiveShadow
         rotation={[-Math.PI / 2, 0, 0]}
-        position={[0, -50, -50]}
+        position={[0, -0.4, 0]}
         args={[100, 100]}
       >
-        <meshStandardMaterial color="gray" />
+        <meshStandardMaterial color="white" />
       </Plane>
     </>
   );

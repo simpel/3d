@@ -37,14 +37,14 @@ export const BaseScene = () => {
           variant={"outline"}
           onClick={() => setCurrentModel("/model/logo.glb")}
         >
-          Use Logo
+          Use Comprend Logo model
         </Button>
 
         <Button
           variant={"outline"}
           onClick={() => setCurrentModel("/model/splash.glb")}
         >
-          Splash
+          Use Splash model
         </Button>
 
         <Button className="bg-red-500" onClick={() => onClickColor("red")}>
@@ -62,10 +62,11 @@ export const BaseScene = () => {
       <Canvas
         shadows
         style={{ height: "100vh", width: "100vw" }}
-        camera={{ position: [0, 0, 5], fov: 50 }}
+        camera={{ position: [0, 0, 1], fov: 50 }}
       >
         <ambientLight intensity={0.5} />
         <directionalLight castShadow position={[0, 5, 5]} />
+
         <OrbitControls />
 
         <Content color={color} texture={texture} model={currentModel} />
