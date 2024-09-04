@@ -3,16 +3,15 @@
 import { Canvas } from "@react-three/fiber";
 import { Environment, OrbitControls } from "@react-three/drei";
 
-import { EffectComposer, DepthOfField } from "@react-three/postprocessing";
 import { useState } from "react";
-import { Logo } from "./logo/logo";
+import { Model } from "./model/model";
 import { Texture, TextureLoader } from "three";
 import { Button } from "./ui/button";
-import { log } from "three/webgpu";
 
 const LogoScene = () => {
   const [color, setColor] = useState("red"); // Default color
   const [texture, setTexture] = useState<Texture | null>(null); // Initially no texture
+  const [currentModel, setCurrentModel] = useState<string>("/model/logo.glb");
 
   const handleApplyTexture = () => {
     const loader = new TextureLoader();
@@ -29,6 +28,20 @@ const LogoScene = () => {
   return (
     <>
       <div className="absolute flex gap-4 z-50 p-4">
+        <Button
+          variant={"outline"}
+          onClick={() => setCurrentModel("/model/logo.glb")}
+        >
+          Use Logo
+        </Button>
+
+        <Button
+          variant={"outline"}
+          onClick={() => setCurrentModel("/model/splash.glb")}
+        >
+          Splash
+        </Button>
+
         <Button className="bg-red-500" onClick={() => onClickColor("red")}>
           Red
         </Button>
@@ -49,8 +62,7 @@ const LogoScene = () => {
         <directionalLight position={[0, 0, 5]} />
         <OrbitControls />
 
-        {/* Pass setFocusDistance to Logo to dynamically adjust focus */}
-        <Logo color={color} texture={texture} />
+        <Model color={color} texture={texture} path={currentModel} />
 
         <Environment preset="sunset" />
       </Canvas>
